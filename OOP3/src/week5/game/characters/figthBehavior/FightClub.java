@@ -13,7 +13,7 @@ public class FightClub implements FightBehavior {
         if (!(weapon instanceof Club)) {
             throw new WeaponUseException("Can't use weapon - " + weapon.getName());
         }
-        System.out.println("Attack with " + weapon.getName());
+        System.out.println("Attack " + enemy.getName() + " with " + weapon.getName());
 
     }
 }

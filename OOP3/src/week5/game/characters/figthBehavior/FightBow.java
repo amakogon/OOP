@@ -14,6 +14,6 @@ public class FightBow implements FightBehavior {
         if (!(weapon instanceof Bow)) {
             throw new WeaponUseException("Can't use weapon - " + weapon.getName());
         }
-        System.out.println("Attack with bow");
+        System.out.println("Attack " + enemy.getName() + " with " + weapon.getName());
     }
 }

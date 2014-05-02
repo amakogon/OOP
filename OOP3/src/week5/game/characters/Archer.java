@@ -11,8 +11,8 @@ public class Archer extends Character {
 
     public Archer(int health, String name) {
         super(health, name);
-        fightBehavior = new FightBow();
-        weapon = new Bow(3, "short bow");
+        setFightBehavior(new FightBow());
+        setWeapon(new Bow(3, "short bow"));
     }
 
 

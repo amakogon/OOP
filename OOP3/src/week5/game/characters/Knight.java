@@ -10,8 +10,8 @@ import week5.game.characters.weapon.Sword;
 public class Knight extends Character {
     public Knight(int health, String name) {
         super(health, name);
-        fightBehavior = new FightSword();
-        weapon = new Sword(4, "sword of destiny");
+        setFightBehavior(new FightSword());
+        setWeapon(new Sword(4, "sword of destiny"));
         getMagicBook().addSpell(SpellTypes.HEAL_SPELL);
     }
 }

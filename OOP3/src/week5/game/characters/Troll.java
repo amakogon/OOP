@@ -11,8 +11,8 @@ public class Troll extends Character {
     public Troll(int health, String name) {
         super(health, name);
         setEnemy(true);
-        fightBehavior = new FightClub();
-        weapon = new Club(6, "huge club");
+        setFightBehavior( new FightClub());
+        setWeapon(new Club(6, "huge club"));
         getMagicBook().addSpell(SpellTypes.FIRE_BALL);
     }
 }

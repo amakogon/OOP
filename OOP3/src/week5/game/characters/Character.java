@@ -14,8 +14,9 @@ public abstract class Character {
     private int health;
     private String name;
     private int strength;
-    FightBehavior fightBehavior;
-    Weapon weapon;
+    private int agility;
+    private FightBehavior fightBehavior;
+    private Weapon weapon;
     private boolean isEnemy;
     private MagicBook magicBook;
 
@@ -23,17 +24,16 @@ public abstract class Character {
     public Character(int health, String name) {
         this.health = health;
         this.name = name;
+        magicBook = new MagicBook();
     }
 
-    public void attack(Character enemy) {
-        try {
-            fightBehavior.attack(enemy, weapon);
-        } catch (WeaponUseException e) {
-            System.err.println(e.getMessage());
-        }
+    public void attack(Character enemy) throws WeaponUseException {
+
+        fightBehavior.attack(enemy, weapon);
+
     }
 
-    public void useMagig(Character character, Spell spell){
+    public void useMagig(Character character, Spell spell) {
         spell.castSpell(character);
     }
 
@@ -97,9 +97,21 @@ public abstract class Character {
         this.weapon = weapon;
     }
 
+    public int getAgility() {
+        return agility;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    private String getCharacterType() {
+        return getClass().toString().substring(28);
+    }
+
     @Override
     public String toString() {
-        return "Character{" +
+        return getCharacterType() + "{" +
                 "name='" + name + '\'' +
                 ", health=" + health +
                 '}';

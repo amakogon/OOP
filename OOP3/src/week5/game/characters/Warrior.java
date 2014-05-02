@@ -8,11 +8,17 @@ import week5.game.characters.weapon.Axe;
  */
 public class Warrior extends Character {
 
+    private static final int DEFAULT_STRENGTH_WARRIOR = 20;
+    private static final int DEFAULT_AGILITY_WARRIOR = 15;
+    private static final int DEFAULT_HEALTH_VALUE = 100;
 
     public Warrior(int health, String name) {
         super(health, name);
-        fightBehavior = new FightAxe();
-        weapon = new Axe(5, "default axe");
+        setFightBehavior(new FightAxe());
+        setWeapon(new Axe(5, "default axe"));
+        setStrength(DEFAULT_STRENGTH_WARRIOR);
+        setAgility(DEFAULT_AGILITY_WARRIOR);
+
     }
 
 
