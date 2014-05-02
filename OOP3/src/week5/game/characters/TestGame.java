@@ -1,8 +1,10 @@
 package week5.game.characters;
 
+import week5.game.characters.SaveHelper.SaveCharacter;
 import week5.game.characters.figthBehavior.WeaponUseException;
 import week5.game.characters.magic.SpellTypes;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -10,6 +12,9 @@ import java.util.Scanner;
  * Created by amakogon on 01.05.2014.
  */
 public class TestGame {
+    private static final String CHARACTER_FILE_PATH = "D:/workspace/character.txt";
+    private static final String STATISTIC_FILE_PATH = "D:/workspace/statistic.txt";
+    private static SaveCharacter saveCharacter = new SaveCharacter();
 
     public static void main(String[] args) {
         Character player = initPlayer();
@@ -19,7 +24,7 @@ public class TestGame {
 
     }
 
-     static Character initPlayer(){
+    static Character initPlayer() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Create new player" + "\n2. Continue last game");
         Character player = null;
@@ -29,13 +34,20 @@ public class TestGame {
             if (answer == 1) {
                 player = createNewPlayer();
             } else if (answer == 2) {
-                player = new Warrior(100, "Artem");
+                try {
+                    player = (Character) saveCharacter.load(CHARACTER_FILE_PATH);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
+        System.out.println(player);
         return player;
     }
 
-     static void fight(Character attacker, Character enemy) {
+    static void fight(Character attacker, Character enemy) {
         try {
             attacker.attack(enemy);
             if ((attacker.getAgility() > enemy.getAgility()) || takeDamage()) {
@@ -47,16 +59,16 @@ public class TestGame {
         }
     }
 
-     static void fightMagic(Character attacker, Character enemy) {
+    static void fightMagic(Character attacker, Character enemy) {
         attacker.useMagig(enemy, SpellTypes.FIRE_BALL.getSpell());
         System.out.println(enemy);
     }
 
-     static boolean takeDamage() {
+    static boolean takeDamage() {
         return (Math.random() > 0.5);
     }
 
-     static Character getRandomEnemy() {
+    static Character getRandomEnemy() {
         double rand = Math.random() * 3;
         if (rand < 1) {
             return new Ork(100, "Katia");
@@ -67,7 +79,7 @@ public class TestGame {
         }
     }
 
-     static Character createNewPlayer() {
+    static Character createNewPlayer() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name");
@@ -87,18 +99,23 @@ public class TestGame {
         }
     }
 
-     static void game(Character player) {
+    static void game(Character player) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Go fight" + "\n2. exit");
         int val = scanner.nextInt();
         if (val == 1) {
             fightMode(player);
         } else if (val == 2) {
+            try {
+                saveCharacter.save(player, CHARACTER_FILE_PATH);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             System.exit(0);
         }
     }
 
-     static void fightMode(Character player) {
+    static void fightMode(Character player) {
         Character enemy = getRandomEnemy();
         Scanner scanner = new Scanner(System.in);
         boolean fightMode = true;

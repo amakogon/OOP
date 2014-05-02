@@ -1,9 +1,11 @@
 package week5.game.characters.weapon;
 
+import java.io.Serializable;
+
 /**
  * Created by amakogon on 01.05.2014.
  */
-public abstract class Weapon {
+public abstract class Weapon implements Serializable{
     private int damage;
 
     private String name;

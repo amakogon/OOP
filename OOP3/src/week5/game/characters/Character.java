@@ -6,10 +6,12 @@ import week5.game.characters.magic.MagicBook;
 import week5.game.characters.magic.Spell;
 import week5.game.characters.weapon.Weapon;
 
+import java.io.Serializable;
+
 /**
  * Created by amakogon on 01.05.2014.
  */
-public abstract class Character {
+public abstract class Character implements Serializable {
 
     private int health;
     private String name;
